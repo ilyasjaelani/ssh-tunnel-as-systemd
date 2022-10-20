@@ -1,0 +1,13 @@
+[Unit]
+Description=SSH reverse tunnel to be
+After=network.target
+
+[Service]
+User=root
+Restart=always
+RestartSec=20
+ExecStart=/usr/bin/ssh -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" -o "ExitOnForwardFailure yes" -N -p 6401 -R 8880:ip_local:5432 root@ip_remote
+
+[Install]
+WantedBy=multi-user.target
+
